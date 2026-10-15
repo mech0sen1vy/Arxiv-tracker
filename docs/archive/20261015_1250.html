@@ -1,0 +1,512 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>arXiv 论文速递</title><style>
+:root {
+  --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#667085; --border:#e5e7eb; --acc:#2563eb;
+}
+:root[data-theme="dark"] {
+  --bg:#0b0f17; --card:#111827; --text:#e5e7eb; --muted:#9ca3af; --border:#1f2937; --acc:#2563eb;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;}
+.container{max-width:900px;margin:0 auto;padding:18px;}
+.header{display:flex;gap:10px;justify-content:space-between;align-items:center;margin:8px 0 16px;flex-wrap:wrap}
+h1{font-size:22px;margin:0}
+.badge{font-size:12px;color:#111827;background:var(--acc);padding:2px 8px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.title{font-weight:700;margin:0 0 6px 0;font-size:18px}
+.meta-line{color:var(--muted);font-size:13px;margin:2px 0}
+.links a{color:var(--acc);text-decoration:none;margin-right:12px}
+.detail{margin-top:10px;background:rgba(2,6,23,.03);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+summary{cursor:pointer;color:var(--acc)}
+.mono{white-space:pre-wrap;background:rgba(2,6,23,.03);border:1px solid var(--border);padding:10px;border-radius:10px}
+.row{display:grid;grid-template-columns:1fr;gap:12px}
+@media (min-width: 860px) {
+  .row-2{grid-template-columns:1fr 1fr}
+}
+.footer{color:var(--muted);font-size:13px;margin:20px 0 10px}
+.hr{height:1px;background:var(--border);margin:14px 0}
+.history-list a{display:block;color:var(--acc);text-decoration:none;margin:4px 0}
+.controls{display:flex;gap:8px;align-items:center}
+.btn{border:1px solid var(--border);background:var(--card);padding:6px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
+.btn:hover{border-color:var(--acc)}
+</style>
+<script>
+(function() {
+  const root = document.documentElement;
+  function apply(t) {
+    if (t==='dark') root.setAttribute('data-theme','dark');
+    else if (t==='light') root.removeAttribute('data-theme');
+    else {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        root.setAttribute('data-theme','dark');
+      else root.removeAttribute('data-theme');
+    }
+  }
+  let t = localStorage.getItem('theme') || 'light';
+  if (!['light','dark','auto'].includes(t)) t='light';
+  apply(t);
+  window.__toggleTheme = function() {
+    let cur = localStorage.getItem('theme') || 'light';
+    if (cur==='light') cur='dark';
+    else if (cur==='dark') cur='auto';
+    else cur='light';
+    localStorage.setItem('theme', cur);
+    apply(cur);
+    const el=document.getElementById('theme-label');
+    if(el) el.textContent = cur.toUpperCase();
+  }
+  window.__expandAll = function(open) {
+    document.querySelectorAll('details').forEach(d => d.open = !!open);
+  }
+})();
+</script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>arXiv 论文速递</h1>
+      <div style="display:flex;gap:10px;align-items:center">
+        
+<div class="controls">
+  <button class="btn" onclick="__toggleTheme()">Theme: <span id="theme-label" style="margin-left:6px">AUTO</span></button>
+  <button class="btn" onclick="__expandAll(true)">Expand All</button>
+  <button class="btn" onclick="__expandAll(false)">Collapse All</button>
+</div>
+
+        <span class="badge">2026-10-15 12:50</span>
+      </div>
+    </div>
+    <div class="hr"></div>
+    <div>Snapshot: 20261015_1250</div>
+    <div class="row"><div class="card">
+<div class="title">Modeling and Understanding Neural Weights of Humanoid Policies with Diffusion</div>
+<div class="meta-line">Authors: Huixuan Cheng, Bike Zhang, Shankar Sastry, Koushil Sreenath</div>
+<div class="meta-line">First: 2026-10-14T17:59:52+00:00 · Latest: 2026-10-14T17:59:52+00:00</div>
+<div class="meta-line">Comments: Project page: https://humanoid-weight-diffusion.github.io/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20606v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20606v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://humanoid-weight-diffusion.github.io/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Recent advances in robot learning have driven rapid progress in humanoid control, enabling increasingly agile behaviors in the real world. However, humanoid control networks are typically obtained through conventional training procedures, while comparatively little attention has been given to directly modeling the distribution of their learned weights and generating functional networks in weight space. In this work, we investigate whether high-performing humanoid control networks can be generatively modeled directly through their weights. We adopt a latent diffusion framework that couples a linear autoencoder with a Diffusion Transformer. The autoencoder compresses actor network parameters into a compact latent space, and the Diffusion Transformer models the distribution of these latents. Trained on networks collected from reinforcement learning for the Unitree G1 robot, our approach generates deployable networks that perform various motions in the real world, including walking, dancing, and spin kick. Beyond generation, we further study the learned weight space to better understand the structure captured by these humanoid control networks. We identify a structural principle in the first-layer weights that consistently reflects the robot&#x27;s kinematic prior. Notably, this kinematic prior emerges under both Reinforcement Learning (RL) and Imitation Learning (IL) training, suggesting that it is not specific to a particular optimization process but may instead reflect common knowledge associated with humanoid embodiment. Together, these results demonstrate the feasibility of generative modeling in humanoid network weight space, while providing initial insights into the information encoded by their learned weights. Additional results are available on our project website: https://humanoid-weight-diffusion.github.io/</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Recent advances in robot learning have driven rapid progress in humanoid control, enabling increasingly agile behaviors in the real world.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Hierarchical Residual Policy Learning for Real-World Mobile Manipulation with Sparse Human Guidance</div>
+<div class="meta-line">Authors: Zhefei Gong, Hefeifei Jiang, Zehao Wang, Jiachen Li</div>
+<div class="meta-line">Venue: CoRL 2026</div>
+<div class="meta-line">First: 2026-10-14T17:59:52+00:00 · Latest: 2026-10-14T17:59:52+00:00</div>
+<div class="meta-line">Comments: Conference on Robot Learning (CoRL 2026); Project Website: https://hire-moma.github.io/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20607v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20607v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://hire-moma.github.io/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Mobile Manipulation (MoMa) is a cornerstone of autonomous robotic systems, yet real-world fine-tuning remains a formidable challenge because of high-dimensional action spaces and intricate coupling between heterogeneous modules. In this paper, we propose HiRe-MoMa (Hierarchical Residual Mobile Manipulation), a systematic framework for stable and sample-efficient real-world fine-tuning of complex MoMa systems. At its core, HiRe-MoMa adopts a Hierarchical Residual Architecture that fine-tunes a frozen base policy. A Policy-Agnostic Residual learns additive corrections atop the base policy, while Hierarchical Decoupling splits the residual into mobile-base and manipulator-arm heads with unidirectional conditioning, mitigating gradient interference and aligning corrections with the platform&#x27;s physical hierarchy. To improve sample efficiency in data-expensive real-world settings, we propose Expert-Guided Value Alignment, which leverages sparse human interventions with under 20% training coverage to reshape the critic&#x27;s value landscape, effectively guiding autonomous exploration through expert priors. Extensive real-world experiments on the TIAGo++ platform demonstrate that HiRe-MoMa consistently enhances task performance with only around 30 minutes of online interaction, regardless of the base policy architecture. To our knowledge, this is among the first frameworks to enable efficient on-robot fine-tuning for mobile manipulation in the real world, providing a practical paradigm for deploying complex robotic systems in dynamic, human-centric environments. Further details can be found on our project website: https://hire-moma.github.io/</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Mobile Manipulation (MoMa) is a cornerstone of autonomous robotic systems, yet real-world fine-tuning remains a formidable challenge because of high-dimensional action spaces and intricate coupling between heterogeneous modules.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Co-Evolving Acting and Forecasting for Language Agents</div>
+<div class="meta-line">Authors: Haofei Yu, Yixing Chen, Yining Zhao, Xuyan Ye, Yuxiang Liu, Zhigang Hua, Yan Xie, Shuang Yang, Jiaxuan You</div>
+<div class="meta-line">First: 2026-10-14T17:59:28+00:00 · Latest: 2026-10-14T17:59:28+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20597v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20597v1">PDF</a> · <a href="https://github.com/ulab-uiuc/CoPE">Code1</a> · <a href="https://huggingface.co/huggingface">Code2</a> · <a href="https://huggingface.co/docs/hub/spaces">Code3</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Training language agents is bottlenecked by the high cost of long-horizon rollouts, yet standard agentic reinforcement learning (RL) learns only from a terminal scalar reward, leaving the supervision in intermediate steps largely unused. Prior work exploits this supervision through value targets that estimate per-step success probabilities or observation targets that fit environment response. Both are hard to construct well: (1) value targets come from the same single scalar signal for each step in the trajectory, and (2) observation targets, such as web pages and terminal logs, are long and noisy and reach only one step ahead. We propose \name, which adds a third kind of multi-step action targets. On successful on-policy trajectories, \name trains the policy backbone to generate the action sequences that follows each history. Each action is also supervised when forecast from the preceding histories, forming a temporal ensemble that the shared backbone absorbs during training, and this enables acting and forecasting to co-evolve. The policy still acts one step at a time at inference, with no overhead. Across five benchmarks (ALFWorld, ScienceWorld, WebShop, $τ^2$-bench, and AppWorld), \name (1) achieves stronger aggregate performance than GRPO and RL baselines with predictive auxiliary targets across simulated environments, while improving overall performance on both realistic applications; (2) delivers up to $1.9\times$ and $2.0\times$ higher sample efficiency than ECHO and GRPO, respectively, on ScienceWorld; and (3) achieves these gains with a single policy backbone, without additional models, separate pretraining, or inference overhead. The codebase is available at https://github.com/ulab-uiuc/CoPE.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Training language agents is bottlenecked by the high cost of long-horizon rollouts, yet standard agentic reinforcement learning (RL) learns only from a terminal scalar reward, leaving the supervision in intermediate steps largely unused.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Player-1: Learning to Play from Synthetic Experience</div>
+<div class="meta-line">Authors: Mingyu Ouyang, Yiran Wang, Siyuan Hu, Xingyilang Yin, Huiqiang Sun, Guangzhi Wang, Junfu Pu, Cheng Cheng, Honghao Chen, Ying Shan, Mike Zheng Shou, Hwee Tou Ng</div>
+<div class="meta-line">First: 2026-10-14T17:57:12+00:00 · Latest: 2026-10-14T17:57:12+00:00</div>
+<div class="meta-line">Comments: Project Page: https://player-1-project.github.io/ and code: https://github.com/TencentARC/Player-1</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20584v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20584v1">PDF</a> · <a href="https://github.com/TencentARC/Player-1">Code1</a> · <a href="https://huggingface.co/huggingface">Code2</a> · <a href="https://huggingface.co/docs/hub/spaces">Code3</a> · <a href="https://player-1-project.github.io/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Computer-use agents have demonstrated strong capabilities in interpreting screens and executing keyboard and mouse actions. However, games, with their visually rich worlds and diverse mechanics, remain challenging and offer a demanding next step toward general digital control. Current game-agent learning pipelines often rely on large-scale demonstrations with limited coverage of dynamic game states, while scalable environments for interactive training remain difficult to obtain. We introduce Player-1, a post-training framework for learning game control beyond demonstrations through synthetic experience. We extend the computer-use action space with relative pointer motion, sustained inputs, and composite actions. For supervised initialization, we fine-tune computer-use models on 6,044 curated gameplay trajectories that pair recorded actions with task instructions and visual reasoning. We construct Player-1-Gym, sixteen synthetic 2D and 3D environments designed around control demands shared across games. Programmatically verifiable rewards and randomized observations and control dynamics support multi-environment reinforcement learning with PPO. The resulting Player-1-9B and Player-1-35B-A3B improve MineDojo-300 success over their SFT policies by 27.8 and 17.7 percentage points, respectively. Player-1-9B reaches 38.33% success compared with 12.63% for the strongest evaluated baseline, with further gains over SFT on ViZDoom-10 and GameWorld. Further analyses show that broader synthetic environment coverage improves transfer, while the use of composite actions that combine multiple keyboard and mouse inputs increases during RL. We demonstrate that learning from synthetic experience substantially improves game control beyond supervised initialization, with gains that generalize beyond the RL training suite.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Computer-use agents have demonstrated strong capabilities in interpreting screens and executing keyboard and mouse actions.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">PingpongDuo: Agile Humanoid Table Tennis Doubles with Safe Team Coordination</div>
+<div class="meta-line">Authors: Haoran Jiang, Yichao Zhong, Kai Zhang, Cheng Liu, Yixuan Pan, Zhenjie Yang, Jingbo Wang, Tianyu Li, Li Chen</div>
+<div class="meta-line">Venue: www</div>
+<div class="meta-line">First: 2026-10-14T17:56:27+00:00 · Latest: 2026-10-14T17:56:27+00:00</div>
+<div class="meta-line">Comments: 9 pages, 6 figures. Project page: https://www.archon.tech/research/PingpongDuo</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20579v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20579v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://www.archon.tech/research/PingpongDuo">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Unlike singles, humanoid table tennis doubles requires teammates to strike in strict alternation while sharing a confined workspace. Rapid repositioning can compromise striking accuracy, while uncoordinated teammate movements introduce collision risks. We present PingpongDuo, a hierarchical framework for agile humanoid doubles with safe team coordination. At the team level, a planner jointly selects positioning targets and uses learned risk estimates to filter risky proposals, preferentially preserving the current striker&#x27;s target. At the individual level, separate footwork and striking skills combine agile movement with precise racket control. The skills are guided by human motion references, including footwork collected from human doubles play, and trained from states produced by one another to support rapid transitions. A racket-arm residual further refines strikes after movement using return feedback from a simulator calibrated with real ball-flight and contact measurements. In simulation, PingpongDuo improves the ball-return success rate by 13.2% over the state-of-the-art baseline, while achieving approximately 2 cm positioning error during clearance. In real-world experiments, a robot completes a 2.15 m clearance-and-recovery cycle in 2.4 s with a peak speed of 2.23 m/s, while two robots sustain more than 10 consecutive strikes in strict alternation.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Unlike singles, humanoid table tennis doubles requires teammates to strike in strict alternation while sharing a confined workspace.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">One Task, Many Interfaces: Simple Cross-Interface Consistency Training Improves LLM Agent Robustness</div>
+<div class="meta-line">Authors: Artin Tajdini, Manpreet Kaur, Peng Qi</div>
+<div class="meta-line">First: 2026-10-14T17:56:06+00:00 · Latest: 2026-10-14T17:56:06+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20576v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20576v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Post-training binds the competence of an LLM agent to the interface it was trained on. Semantics-preserving perturbations of that interface, such as renaming an action or changing the notation, leave the underlying task unchanged yet make the agent worse at it. Scoring each sample independently means interface randomization only broadens this dependence from a single interface to the training interface distribution, so out-of-distribution perturbations still degrade the agent. We propose Cross-Interface Policy Regularization (CIPR), a self-supervised objective that replaces action names with uninformative identifiers and presents each training sample under two interfaces in which equivalent actions are identified by construction. CIPR penalizes the KL divergence between the action distributions induced under the two interfaces, so the policy behaves consistently across them. We evaluate CIPR in both supervised and reinforcement-learning post-training, where it improves robustness. On agentic function calling, held-out interface perturbations reduce the accuracy of a post-trained agent by nearly 25%, and CIPR recovers 10.5% while leaving accuracy on the unchanged interface intact.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Post-training binds the competence of an LLM agent to the interface it was trained on.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">From Causal Graphs to Markovian States: Multi-Order State Exposure for Deep RL</div>
+<div class="meta-line">Authors: Jiamin Xu, Jacqueline Maasch, Kyra Gan</div>
+<div class="meta-line">First: 2026-05-08T00:12:03+00:00 · Latest: 2026-10-14T17:48:13+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2605.07057v2">Abs</a> · <a href="https://arxiv.org/pdf/2605.07057v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Online reinforcement learning (RL) relies on the Markov property for guaranteed performance, but real-world applications often lack well-defined states given raw observed variables. While causal RL has attracted growing interest, existing work typically assumes Markovian states are provided and uses causality only to accelerate learning. This leaves a fundamental gap: \emph{given a longitudinal causal graph over observed variables, how does one construct MDP states that provably satisfy the Markov property?} We provide a procedure that constructs a provably minimal such state. In deep RL, the minimal representation alone empirically fails to improve performance, indicating that neural networks cannot automatically exploit Markovian minimality. We therefore propose \textbf{MOSE} (Multi-Order State Exposure), which exposes a single shared Q-function to history-based state constructions of orders 1 through $W$ simultaneously. An attention-based selection layer scores the dimensions of this combined input by their estimated relevance to value-function estimation and selects the high-scoring ones. Causal MOSE further constrains the selection layer to retain every variable of the minimal state, guaranteeing sufficiency while leaving the model free to admit useful redundancy. MOSE consistently outperforms both the minimal state construction and single-window policies on common benchmarks and synthetic datasets. Including the minimal representation alongside MOSE can further improve performance. Our results establish a core principle for causal deep RL: minimal sufficiency is not enough. \emph{Controlled redundancy} gives the model flexibility to learn its state representation end-to-end. Causal state information provides structural guidance that can make this learning more efficient.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Online reinforcement learning (RL) relies on the Markov property for guaranteed performance, but real-world applications often lack well-defined states given raw observed variables.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">PhySGA: A Physics-Space Grounded Agentic Framework for Generalizable and Interactive 3D Composition</div>
+<div class="meta-line">Authors: Weichen Lyu, Chong Xia, Mingyu Dong, Long Xu, Shengjun Zhang, Yueqi Duan</div>
+<div class="meta-line">First: 2026-10-14T17:47:24+00:00 · Latest: 2026-10-14T17:47:24+00:00</div>
+<div class="meta-line">Comments: Project Page: https://agenticei.github.io/PhySGA-page/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20560v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20560v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://agenticei.github.io/PhySGA-page/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">3D object composition is pivotal to digital content creation and robot simulation, while also serving as a critical testbed for physical intelligence in foundation models. Previous methods either leverage large language models to directly predict object coordinates, or utilize generative diffusion priors to synthesize composite images for visual alignment, both of which rely on static priors in digital spaces. However, these methods consistently struggle with complex compositions such as precise hanging, gravity-driven settling and hidden containment, as these tasks require interactive construction processes involving global planning, fine-grained alignment, and physical simulation. To address these challenges, we propose PhySGA, a Physics-Space Grounded Agentic Framework for 3D composition via agent exploration and physical simulation, enabling the universal interactive assembly of rigid, articulated, and deformable objects. Directly applying vanilla LLMs or VLMs to this task proves insufficient, as current models inherently lack grounded physical understanding and interactive construction experience. To overcome this limitation, we design a collaborative feedforward-feedback architecture: an Assembly Agent focuses on geometric and kinematic reasoning for global step planning and coarse adjustment, while a Critic Agent reasons over contact dynamics for simulator state diagnosis and fine-grained closed-loop correction. Furthermore, Action Routers map semantic planning and analysis onto executable physical primitives within the simulator, while a task-specific Self-Evolving Skill Library distills historical trial-and-error feedback into reusable experiences, boosting success rates and minimizing exploration attempts. Extensive experiments within Isaac Sim demonstrate that PhySGA significantly surpasses existing methods in relation fidelity, physical plausibility, and visual quality.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">3D object composition is pivotal to digital content creation and robot simulation, while also serving as a critical testbed for physical intelligence in foundation models.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">EmbodiedEvo: Self-Evolving Coding Agent For Physical Intelligence</div>
+<div class="meta-line">Authors: Wenyi Li, Yizhe Chi, Youjie Zheng, Chunyu Liu, Xiaoqiu Wang, Mingju Gao, Zheng Jiang, Deyao Hong, Calvin Xiao, Kaisen Yang, Qinhuai Na</div>
+<div class="meta-line">First: 2026-10-13T17:59:51+00:00 · Latest: 2026-10-14T17:45:55+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18867v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.18867v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Coding agents can construct executable programs and revise them through feedback, offering a foundation for embodied control without target-task fine-tuning. Through a programmatic robot interface, the agent observes the scene, executes control programs, and adapts them to the resulting physical state, serving as the closed-loop policy. However, this within-episode adaptation does not automatically preserve experience across scenes. Our trajectory analysis shows that agents spend interaction and inference budgets establishing effective operations and identifying their preconditions, while fresh agents cannot reuse these discoveries. This motivates EmbodiedEvo, a self-evolving coding agent that distills physical feedback into reusable code Skills and diagnostic Lessons. Experience is acquired on one Playground scene per task, then frozen for independent agents in unseen scenes, without updating model weights. On RoboDojo-Sim, EmbodiedEvo achieves an average score of 44.48 and a success rate of 37.82\%, surpassing all officially verified results. Paired tests show the largest gains on memory-dependent tasks and successful reuse of coordinated procedures, while fine contact control remains difficult. Experience from stronger models also improves weaker executors: Astra&#x27;s experience raises Sol and Luna&#x27;s success rates by 8.86 and 5.50 percentage points over no experience. Compared with raw interaction history, Skills and Lessons achieve comparable task performance at 53.0\% lower execution cost.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Coding agents can construct executable programs and revise them through feedback, offering a foundation for embodied control without target-task fine-tuning.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">KinoGen: Customizable Humanoid Loco-Manipulation References via Kinematically Grounded Video Generation</div>
+<div class="meta-line">Authors: Qi Wu, Lulu Zhao, Sanghyun Hahn, Rishi Yennu, Emmy Yang, Dingqi Zhang, Tao Pang, Jiuguang Wang, Kuan Fang</div>
+<div class="meta-line">First: 2026-10-14T17:43:32+00:00 · Latest: 2026-10-14T17:43:32+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20552v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20552v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://kinogen-humanoid.github.io/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">We present KinoGen, a framework that synthesizes customizable humanoid loco-manipulation references through kinematically grounded video generation. KinoGen conditions a pretrained video generator on calibrated renders of the target robot and object in a simulated task instance and recovers the reference by fitting the same models to the generated two-view video, so that the reference lies in the robot configuration space by construction without a human body proxy or retargeting. Body, hand, and object priors initialize the reconstruction, and direct optimization against cross-view evidence refines it. Since an edited keyframe is simply another rendered state, a user can prescribe a goal object pose, regenerate the video around the edited keyframe, and obtain a reference that satisfies the pose exactly. Across eight loco-manipulation tasks, KinoGen yields lower penetration and foot skating than video-based baselines and preserves over 90% of annotated contacts, and its customized references satisfy every prescribed target with substantially less penetration than direct interpolation. Tracking policies trained on the synthesized references are deployed on a Unitree G1 humanoid with dexterous hands. Project webpage: https://kinogen-humanoid.github.io/.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">We present KinoGen, a framework that synthesizes customizable humanoid loco-manipulation references through kinematically grounded video generation.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">PrismaCoder: Pushing the Boundaries of Open Multimodal Code Intelligence through Decomposed Rubric Synthesis</div>
+<div class="meta-line">Authors: Qiushi Sun, Jingyang Gong, Yang Liu, Qiaosheng Chen, Zhangyue Yin, Zixian Huang, Hanxu Hu, Jing Xiong, Fangzhi Xu, Haochen Tan, Haoli Bai, Lifeng Shang, Xiaoguang Li, Ben Kao, Qipeng Guo, Lingpeng Kong, Jiahui Gao</div>
+<div class="meta-line">First: 2026-10-14T17:32:54+00:00 · Latest: 2026-10-14T17:32:54+00:00</div>
+<div class="meta-line">Comments: Work in progress</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20538v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20538v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://qiushisun.github.io/PrismaCoder-Home/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Multimodal code intelligence connects the symbolic world of programs with the visual world their execution creates. Interest in this capability is burgeoning, as models are increasingly asked to produce charts, webpages, animations, and semi-structured documents. Recently, proprietary models have pushed far ahead, producing interactive artifacts even from a text description or a screenshot alone. Yet their data and training remain closed, and open progress is held back by the quantity and quality of available data and by the pipelines and methods for producing it. Quality is the harder of the two, since a sample must be correct as a program, well built, and above all visually right once rendered. No existing signal covers all three. Execution often returns just a pass or fail, code similarity does not map to the visual output, and task-specific verifiers do not generalize. To push open progress further, we start from the data side with PrismaForge, a hierarchical data pipeline centered on a synthesized rubric that decomposes these factors into checkable criteria. The same rubric serves as both filter and reward: it curates the supervised corpus, then drives reinforcement learning on visual-coding tasks. Leveraging PrismaForge for data synthesis and filtering, we build PrismaCoder-2M, the most diverse open dataset for multimodal code intelligence and the largest to date. On the model side, we train PrismaCoder-9B and PrismaCoder-35B on this data and release both. They lead the open state of the art by a wide margin and rival leading proprietary systems. Our analyses further show that the proposed rubric-based pipeline improves multimodal coding performance across model backbones. We release our code and data at https://qiushisun.github.io/PrismaCoder-Home/.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Multimodal code intelligence connects the symbolic world of programs with the visual world their execution creates.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Revisiting Simple Baselines for Relational Deep Learning</div>
+<div class="meta-line">Authors: Viet The Nguyen, Vijay Prakash Dwivedi, Gunther Gust</div>
+<div class="meta-line">First: 2026-10-14T17:30:17+00:00 · Latest: 2026-10-14T17:30:17+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20534v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20534v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Relational deep learning has emerged as a powerful paradigm for learning end-to-end predictive models over relational databases by representing them as temporal heterogeneous graphs. Recent advances based on graph neural networks and Transformers have achieved strong performance across diverse domains. However, the effectiveness of simpler relational baselines remains underexplored, making it difficult to assess how much architectural complexity is needed to achieve strong predictive performance. Motivated by the observation that predictive signals arise from target attributes, relational attributes, and historical labels, we revisit how effectively these signals can be exploited using simple propagation methods. We adapt fixed low-pass feature propagation to relational entity graphs and train an MLP for prediction. The resulting predictions are further refined using Correct-and-Smooth, a graph-based label propagation algorithm that incorporates historical labels over task-specific meta-graphs connecting target entities. Across classification and regression tasks on RelBench, an MLP trained on neighborhood-filtered features outperforms one using only target-entity features on most tasks and recovers a substantial portion of the performance of heterogeneous GNNs. Correct-and-Smooth provides further gains from historical labels, although applying it requires a separately constructed meta-graph because connections among target entities are not directly specified by the relational entity graph. Together, our studies revisit the effectiveness of established propagation methods as simple RDL baselines while identifying canonical meta-graph construction as a key challenge for effective label propagation.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Relational deep learning has emerged as a powerful paradigm for learning end-to-end predictive models over relational databases by representing them as temporal heterogeneous graphs.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">EarlyCommit: Calibrated Word-by-Word Commitment for Robots Acting Before You Finish Speaking</div>
+<div class="meta-line">Authors: Muhammad Haris Khan</div>
+<div class="meta-line">First: 2026-10-14T17:28:46+00:00 · Latest: 2026-10-14T17:28:46+00:00</div>
+<div class="meta-line">Comments: Submitted</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20531v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20531v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Human listeners can often identify the intended object several words before an instruction ends. Robots, however, are typically designed to wait until the speaker has finished before deciding how to act. We present EarlyCommit, an open-source tool that lets a robot commit to the intended object while the instruction is being spoken. After every recognized word, a fine-tuned text encoder scores each object in the scene. The robot acts when the calibrated probability of the best object reaches a threshold tau set by the user, so 1 - tau is the accepted risk of choosing the wrong object. Otherwise, it waits or asks. The tool includes a streaming speech front end, a scene and instruction generator with exact word-by-word ground truth, and scripts to train, calibrate, and evaluate. On instructions containing words never seen in training, EarlyCommit commits correctly 1.6 to 2 times as often as keyword matching, is right at least 92 percent of the time when it commits at tau = 0.9, and needs 31 to 35 ms per word on consumer GPUs.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Human listeners can often identify the intended object several words before an instruction ends.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Physical Time as a Missing Dimension of Robot Policy Memory Dynamics</div>
+<div class="meta-line">Authors: Yushen Liang, Yue Peng, Baosheng Jin, Tianluo Zhang, Xinyu Zhang, Shuyi Zhou, Zhuoran Chen, Xinqi Liu, Shenji Wan</div>
+<div class="meta-line">First: 2026-10-14T17:24:13+00:00 · Latest: 2026-10-14T17:24:13+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20524v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20524v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Existing robot policy memories typically evolve with observation sequences, implicitly treating each update as the same amount of physical time. Yet identical observation histories can span different durations and require different actions, exposing physical time as a missing dimension of policy memory. We introduce Temporal Flow Policy (TFP), which learns memory dynamics to retain past events and evolve the memory state over measured time intervals. Observations and prior memory determine the content and time scales of each transition; elapsed time determines how far the state advances. TFP conditions diffusion and flow-matching policies through this memory state and is trained with their native imitation objectives. We evaluate TFP with Diffusion Policy and $π_{0.5}$ through controlled comparisons of memory designs. These experiments show that successful timing depends on both measured intervals and retained history. TFP achieves higher average success than the recurrent and state-space memories we equip with the same intervals and than a variant that feeds the interval to a learned gate. Memory readouts recover the time since an event and motion information after occlusion. Changing the supplied intervals systematically delays or advances actions, linking time inputs to behavior. Real-robot tasks requiring timing or memory, together with LIBERO evaluations, demonstrate benefits in physical and general manipulation. These results suggest viewing robot memory not as stored observation history, but as a state that retains past events and evolves with physical time.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Existing robot policy memories typically evolve with observation sequences, implicitly treating each update as the same amount of physical time.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Learning From a Steady Hand: A Weakly Supervised Agent for Robot Assistance under Microscopy</div>
+<div class="meta-line">Authors: Huanyu Tian, Martin Huber, Lingyun Zeng, Zhe Han, Wayne Bennett, Giuseppe Silvestri, Gerardo Mendizabal-Ruiz, Tom Vercauteren, Alejandro Chavez-Badiola, Christos Bergeles</div>
+<div class="meta-line">First: 2026-01-28T17:03:43+00:00 · Latest: 2026-10-14T17:12:58+00:00</div>
+<div class="meta-line">Comments: Accepted for publication in IEEE Transactions on Robotics (T-RO), 2026</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2601.20776v2">Abs</a> · <a href="https://arxiv.org/pdf/2601.20776v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">This paper rethinks steady-hand robotic manipulation by using a weakly supervised framework that fuses calibration-aware perception with admittance control. Unlike conventional automation that relies on labor-intensive 2D labeling, our framework leverages reusable warm-up trajectories to extract implicit spatial information, thereby achieving calibration-aware, depth-resolved perception without the need for external fiducials or frame-by-frame manual depth annotation. By explicitly characterizing residuals from observation and calibration models, the system establishes a task-space error budget from recorded warm-ups. Under the evaluated laboratory conditions, the recorded trajectories yielded an empirical lateral error level of approximately 49μm and a conservative axial error estimate of approximately 291 μm during large in-plane moves. In a within-subject user study (N=8), the learned agent reduces overall NASA-TLX workload by 77.1% relative to the simple steady-hand assistance baseline. Together, these results demonstrate successful closed-loop micromanipulation and reduced subjective workload under the evaluated laboratory conditions, without external fiducials or frame-by-frame manual depth annotation, supporting the proposed approach as a framework for microscope-guided robotic assistance.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">This paper rethinks steady-hand robotic manipulation by using a weakly supervised framework that fuses calibration-aware perception with admittance control.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Graph-Reweighted Behavior Cloning with Human Interventions for Precise Robotic Manipulation</div>
+<div class="meta-line">Authors: Xiaoman Li, Zhiqiang Yang, Jiayu Hu, Jipeng Kong, Yang Zhang, Jingwei Zhang, Fangzheng Yan, Chunhua Shen, Chenjia Bai</div>
+<div class="meta-line">Venue: CoRL 2026</div>
+<div class="meta-line">First: 2026-10-14T17:09:36+00:00 · Latest: 2026-10-14T17:09:36+00:00</div>
+<div class="meta-line">Comments: Accepted at CoRL 2026. 25 pages, 16 figures, including appendix. Project page: https://gr-bc.github.io/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20504v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20504v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://gr-bc.github.io/">Project1</a> · <a href="https://gr-bc.github.io">Project2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Long-horizon precise manipulation produces mixed-quality data for post-training vision-language-action (VLA) models: even successful demonstrations and intervention-assisted rollouts may contain detours, hesitations, failed attempts, and imperfect recoveries. The key challenge is to identify which action chunks actually advance the task, rather than uniformly cloning or discarding imperfect trajectories. We propose Graph-Reweighted Behavior Cloning (GR-BC), an offline iterative post-training framework that builds a task-conditioned goal-reachability graph over demonstrations and iteratively collected rollouts, including both successful and failed episodes with human interventions. Reverse graph search computes minimal remaining steps to task success within the dataset support, and each action chunk is weighted by how much its execution reduces this potential. This consequence-based weighting reuses recoverable segments from failed trajectories, leverages interventions as recovery paths, and down-weights locally regressive chunks even inside successful trajectories. New rollouts are incorporated by appending them to the graph and rerunning search, without training a reward model, action-conditioned critic, or progress predictor. Across four precise manipulation tasks and three VLA backbones, GR-BC improves single-round supervised fine-tuning and reaches 91% success after a few offline iterations, without trajectory comparisons or progress labels. More details and videos are available at: https://gr-bc.github.io</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Long-horizon precise manipulation produces mixed-quality data for post-training vision-language-action (VLA) models: even successful demonstrations and intervention-assisted rollouts may contain detours, hesitations, failed attempts, and imperfect recoveries.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Hindsight-Privileged RLVR: Single-Rollout Token Credit Without Group Sampling</div>
+<div class="meta-line">Authors: Wei Chen, Yubing Wu, Zhou Xu, Haoyue Zhang, Delu Zeng, Jiahao Wang, Junmei Yang, Pan tiewen, Jingfeng Liu, Zhiheng Zhou, Bo Li, Min Chen</div>
+<div class="meta-line">First: 2026-10-14T17:06:59+00:00 · Latest: 2026-10-14T17:06:59+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20497v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20497v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Reinforcement learning with verifiable rewards (RLVR) trains language models from checked task outcomes, but assigning a terminal reward to individual reasoning tokens or actions remains difficult. Group-relative methods such as Group Relative Policy Optimization (GRPO) sample several attempts per prompt, but lose their reward-based learning signal when all attempts receive the same outcome. We propose Hindsight-Privileged RLVR (HP-RLVR), a single-rollout method that turns a completed trajectory&#x27;s own future into token-level update weights. The generating policy snapshot scores each eligible token under its causal history and under a hindsight context containing the realized future and verifier feedback. A normalized Jensen--Shannon divergence between the two views weights the reward relative to a historical baseline, yielding bounded token credit for both successful and failed attempts, with no reference solution or learned critic. In paired Qwen3-8B runs over a shared $100$-step schedule, HP-RLVR trains $1.21\times$, $1.46\times$, and $2.30\times$ faster than GRPO on mathematics, code generation, and ALFWorld, using one eighth the rollouts per prompt. Accuracy is comparable overall, with HP-RLVR ahead on mathematics at all three sizes and GRPO ahead on code and ALFWorld. In ALFWorld, $43.2\%$ (4B) and $49.0\%$ (8B) of GRPO&#x27;s gradient-norm records are zero, versus none for HP-RLVR.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Reinforcement learning with verifiable rewards (RLVR) trains language models from checked task outcomes, but assigning a terminal reward to individual reasoning tokens or actions remains difficult.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">What the Elevation Map Cannot See: Semantic-Aware Locomotion and Execution-Aware Navigation for Humanoid Robot</div>
+<div class="meta-line">Authors: Shunyu Yao, Songyang Liu, Dinghao Chen, Yuanyuan Lei, Shuai Li</div>
+<div class="meta-line">First: 2026-10-05T21:08:23+00:00 · Latest: 2026-10-14T17:03:04+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.07396v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.07396v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Navigation for humanoid robots is critical, yet large-scale evaluation on physical hardware is often impractical due to cost and safety concerns, making simulation benchmarks essential. Existing VLN benchmarks achieve physically executable navigation, but still assume (1) all hazards are observable from elevation maps; (2) realized motions closely match desired motions. In real environments, however, fallen bottles may be ambiguous in elevation maps, while phones and water spills may be difficult to differentiate; hazard avoidance by the locomotion policy can cause the robot&#x27;s actual trajectory to deviate from the path intended by the VLN policy. Such command-execution mismatch can accumulate and lead the robot toward unintended locations. To expose these failure modes, we introduce a benchmark that models both elevation-subtle hazards and execution deviations, together with a closed-loop VLN + locomotion control framework that continuously realigns high-level navigation with the robot&#x27;s actual state. We evaluate navigation in simulation and further validate the locomotion policy on a physical Unitree G1 humanoid robot. Results show that semantic input reduces contact with hazards poorly represented in elevation maps, while anti-deviation improves navigation success. These findings highlight the need to evaluate humanoid navigation jointly in terms of route completion and hazard avoidance.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Navigation for humanoid robots is critical, yet large-scale evaluation on physical hardware is often impractical due to cost and safety concerns, making simulation benchmarks essential.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Towards Certifiable State Estimation under Observability Degeneracy</div>
+<div class="meta-line">Authors: Baoshan Song</div>
+<div class="meta-line">First: 2026-10-14T17:03:00+00:00 · Latest: 2026-10-14T17:03:00+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20490v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20490v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Certifiable optimization provides global optimality guarantees for non-convex state estimation in robotics. However, under severe physical sensing degeneracy, convex Semidefinite Programming relaxations solved via Interior-Point Methods suffer from rank expansion, rendering direct semidefinite solving and spectral rounding algebraically invalid. In this paper, we establish a universal candidate-driven dual certification framework that resolves this challenge without incurring rank expansion. First, from an epigraph perspective, we prove that while sensing degeneracy expands the primal optimal set into a flat equi-cost face, cost tightness and multiplier recovery remain strictly intact, enabling global verification without direct semidefinite solving. Second, we propose an observability-aware local search using solution remapping, coupled with a closed-form dual multiplier recovery scheme that executes in sub-microsecond latency. Third, we derive a model-specific adaptive dual safety threshold parameterized by the minimum non-zero eigenvalue of the observable Hessian and uneradicated residual leakage, preventing false rejections of optimal candidates under weak observability. We validate our universal framework with robust registration under degenerate measurements.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Certifiable optimization provides global optimality guarantees for non-convex state estimation in robotics.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">RoboSimStudio: An Interactive Toolkit for Human and Agent Rapid Real2Sim of Robot Manipulation Tasks</div>
+<div class="meta-line">Authors: Kaiyuan Chen, Shuangyu Xie, Uksang Yoo, Xinyue Zhu, Cael Magner, Alvin Zhu, Daehwa Kim, Eric Heiden, Erwin Coumans, Miles Macklin, Spencer Huang, Ken Goldberg</div>
+<div class="meta-line">First: 2026-10-13T17:55:14+00:00 · Latest: 2026-10-14T17:02:18+00:00</div>
+<div class="meta-line">Comments: 13 pages, 7 figures, 1 table. Project website: https://robosimstudio.github.io</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18835v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.18835v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://robosimstudio.github.io">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">It has been difficult to accurately model the physics of the interaction between a robot and the objects it manipulates, including contact mechanics, coupled contact dynamics, deformations, stiffness and friction. We present RoboSimStudio (RSS), an interactive toolkit that makes choices of solver, contact model, and physical parameters explicit and editable, allowing both humans and coding agents to quickly create and iteratively refine simulations based on observed physical behavior. We implement RSS with the open Newton physics simulation system and describe experiments with human-guided real2sim using (1) visual evaluation, (2) force-feedback and (3) agentic Real2Sim2Real. Code, video and additional information can be found on the project website: https://robosimstudio.github.io</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">It has been difficult to accurately model the physics of the interaction between a robot and the objects it manipulates, including contact mechanics, coupled contact dynamics, deformations, stiffness and friction.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Average-Reward Policy Identification from a Single Continuing Trajectory</div>
+<div class="meta-line">Authors: Tongxi Wang</div>
+<div class="meta-line">First: 2026-10-14T16:57:47+00:00 · Latest: 2026-10-14T16:57:47+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20486v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20486v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">In reinforcement learning, an agent must explore an unknown environment to learn how to make good decisions. Unlike methods that can freely sample any state--action pair, an agent learning from a single trajectory must spend additional time navigating between states. It is therefore natural to expect that learning from a single trajectory requires more experience. In this paper, we show that this additional cost is not always necessary. For average-reward reinforcement learning, we develop an algorithm that learns where to collect information while ensuring that the required samples can be obtained efficiently. We establish an upper bound on the number of interactions needed to identify a near-optimal policy. Furthermore, we prove a matching information theoretic lower bound, showing that, for a broad class of environments and at sufficiently high accuracy, learning from a single trajectory is no harder in the worst case than learning with unrestricted access to state action samples. Our results reveal that the additional complexity cost of navigation can be avoided by adapting information gathering requirements to how the environment provides information.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">In reinforcement learning, an agent must explore an unknown environment to learn how to make good decisions.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Tiered-Resolution Volumetric Mapping for Real-Time Simultaneous Planning and Mapping on Natural Outdoor Environments</div>
+<div class="meta-line">Authors: Afonso E. Carvalho, David Portugal, Paulo Peixoto, George Kantor</div>
+<div class="meta-line">Venue: IROS 2026</div>
+<div class="meta-line">First: 2026-10-14T16:51:35+00:00 · Latest: 2026-10-14T16:51:35+00:00</div>
+<div class="meta-line">Comments: 5 pages, 5 figures, 2 tables, IROS 2026 &quot;Data in Field Robotics: From State Estimation to Navigation&quot; workshop</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20476v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20476v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Real-time volumetric mapping for a planning robot is dominated by the cost of integrating and storing information at the finest resolution, yet only a small fraction of any map ever lies on or near a path the planner actually considers. We exploit this with a tiered-resolution mapping mechanism that integrates LiDAR into a single map structure at two resolutions simultaneously: fine inside a corridor around the robot&#x27;s current plan, and coarse everywhere else. As opposed to traditional navigation pipelines where path planning uses the mapping result and provides no feedback, we propose a feedback loop where planning also informs mapping to dynamically integrate information at different leaf resolutions. Across two real-world teleoperated datasets, replayed and scored offline against an independent full-resolution map, the tiered maps are 13-15x smaller and require 6-8x less integration CPU time than a uniform fine map, while producing paths at a similar cost per meter as the ones generated from fine resolution maps on both scenarios. A uniform coarse map reaches the same size savings but its path quality collapses (+210% cost per meter) on the harder scenario, because it over-discretizes terrain the robot must traverse. Tiering approximates the coarse map&#x27;s cheapness without its failure mode.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Real-time volumetric mapping for a planning robot is dominated by the cost of integrating and storing information at the finest resolution, yet only a small fraction of any map ever lies on or near a path the planner actually considers.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">DD-GBP: Anytime Multi-Arm Planning and Continuous Execution via Distributed Dynamic Gaussian Belief Propagation</div>
+<div class="meta-line">Authors: Zhao Jin, Fengyi Dai, Yuetong Yin, Yunan Wang, Wenjie Chen, Chuxiong Hu</div>
+<div class="meta-line">First: 2026-10-14T16:43:32+00:00 · Latest: 2026-10-14T16:43:32+00:00</div>
+<div class="meta-line">Comments: 18 pages,9 figures</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20460v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20460v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Safely executing long-horizon multi-arm tasks online in complex dynamic environments remains challenging. We propose a new distributed dynamic Gaussian belief propagation (DD-GBP) method that directly plans joint-space trajectories through parallel local inference. A unified Gaussian-process (GP) parameterization connects adaptive planning horizons, interpolation-time factors, and continuous execution. Each robot maintains a local tree-structured factor graph and exchanges messages asynchronously over active inter-arm links. Dynamic subnet reconstruction and event-triggered updates reduce communication and inference costs while responding to moving obstacles. We also provide theoretical analyses of local inference accuracy, anytime early stopping, triggered-replanning consistency, and GP-consistent execution.
+  In 50 long-horizon, multi-target four-arm scenes with moving obstacles, DD-GBP achieves $92.5\%$ collision-free all-target completion and the highest success rate among six representative baselines. Scenario ablations demonstrate long-horizon safety and robustness to communication impairment and extreme conditions; success remains $86.0\%$ under $90\%$ packet loss. Execution results further show substantially suppressed extreme velocity and acceleration peaks relative to Syn-GBP. On one workstation, obstacle-free tests with 30 coexisting arms retain $99.87\%$ success and a $15.80$ ms mean warm solve, exceeding 60 Hz and outperforming the compared methods in scalability. Dual-arm transport experiments under dynamic interference demonstrate online response and practical deployability. To the best of our knowledge, these results establish a new state of the art for online long-horizon multi-arm planning in dynamic scenes.</div></details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Safely executing long-horizon multi-arm tasks online in complex dynamic environments remains challenging.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">RRM-GPT: A Framework and Vision for Radio Resource Management Foundation Models</div>
+<div class="meta-line">Authors: Ahmed Aboulfotouh, Akram Bin Sediq, Koosha Pourtahmasi Roshandeh, Omar Mashaal, Ahmad M. Nagib, Jale Sadreddini, Hatem Abou-Zeid</div>
+<div class="meta-line">First: 2026-10-03T05:04:46+00:00 · Latest: 2026-10-14T16:43:17+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.04296v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.04296v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Learning-based models for radio resource management (RRM) are typically built for a single function and deployment, so each new setting repeats the development pipeline. RRM decisions, however, share a common structure: each is assembled from interdependent fields, defined by the standard, whose values are selected in view of the network state. We propose RRM-GPT, an autoregressive framework for RRM foundation models that generate these decisions as a language model generates text. An encoder maps heterogeneous network observations into a common token representation, and a decoder emits the decision one field at a time, each conditioned on the network state and the fields already committed. Pretraining on unannotated network logs teaches the model what makes a decision valid and how controllers choose among valid decisions; post-training then adapts it to deployment-specific operator objectives through imitation or reinforcement learning. The framework targets two forms of reuse: a function-specific model reused across deployments, and a model shared across RRM functions that generates their interdependent decisions as one sequence. In a 5G New Radio (NR) case study, we demonstrate that a single model generates complete scheduling grants spanning user selection, timing, link adaptation, resource allocation, and control signaling. The model captures dependencies among grant fields and transfers learned behavior to an unseen scenario without adaptation.</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>RRM-GPT：无线资源管理基础模型的框架与愿景</div>
+<div class="mono" style="margin-top:8px">基于学习的无线资源管理（RRM）模型通常针对单一功能和部署构建，因此每个新场景都要重复开发流程。然而，RRM决策具有共同结构：每个决策都由标准定义的相互依赖字段组成，其取值依据网络状态选择。我们提出RRM-GPT，一种用于RRM基础模型的自回归框架，像语言模型生成文本一样生成这些决策。编码器将异构网络观测映射为统一的token表示，解码器逐字段输出决策，每个字段都以网络状态和已确定的字段为条件。在未标注网络日志上进行预训练，使模型学会决策有效的条件以及控制器如何在有效决策中选择；后训练则通过模仿学习或强化学习使其适应特定部署的运营商目标。该框架面向两种复用形式：跨部署复用的功能专用模型，以及跨RRM功能共享、将其相互依赖的决策作为一个序列生成的模型。在5G新空口（NR）案例研究中，我们证明单个模型可生成完整的调度授权，涵盖用户选择、时序、链路自适应、资源分配和控制信令。该模型能捕捉授权字段间的依赖关系，并将学习到的行为迁移到未见场景而无需适配。</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Learning-based models for radio resource management (RRM) are typically built for a single function and deployment, so each new setting repeats the development pipeline.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Towards Agentic Robots: Model, Data, Environment, and Harness</div>
+<div class="meta-line">Authors: Chonghan Qin, Dongming Wu, Kaituo Feng, Jiaxu Wang, Xinlei Yu, Peiwen Sun, Yijia Fan, Xilin He, Bingao Chen, Weitong Lian, Ryan Ji, Wenqi Ren, Xiaobin Hu, Dahua Lin, Yu-Gang Jiang, Xiangyu Yue</div>
+<div class="meta-line">First: 2026-10-14T16:32:22+00:00 · Latest: 2026-10-14T16:32:22+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20442v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20442v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Foundation models are driving a paradigm shift in robotic intelligence, moving beyond low-level action prediction to goal-directed orchestration of data collection, model training, task planning, and real-world execution. We characterize this emerging paradigm as an agentic robots, in which agents reason over human instructions, interact with robotic environments, rectify execution errors autonomously, and dynamically adjust operational strategies. Although this field develops fast, current studies are not well connected. Researchers have no consistent view of how to combine different agentic functions into a complete robot system. This paper provides a unified overview of existing research on agentic robots. We first trace the development from robot policies to agentic systems, covering vision-language-action models, world models, and world-action models. We then clarify the definition and scope of agentic robots and organize existing research into seventeen categories across four functional domains: Model, Data, Environment, and Harness. Across these domains, we examine how agents shape model learning and robot decisions, collect and curate robot data, construct worlds, tasks, and tests for learning and evaluation, and organize capabilities for robot use. Finally, we discuss open challenges and outline directions for future research. Looking forward, we hope this work contributes to a clearer understanding of agentic robots and supports new approaches to making them more capable, reliable, and adaptive.</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>迈向智能体机器人：模型、数据、环境与框架</div>
+<div class="mono" style="margin-top:8px">基础模型正在推动机器人智能的范式转变，从低级动作预测转向对数据收集、模型训练、任务规划和现实世界执行的目标导向编排。我们将这一新兴范式称为智能体机器人，其中智能体对人类指令进行推理，与机器人环境交互，自主纠正执行错误，并动态调整操作策略。尽管该领域发展迅速，但当前研究之间缺乏良好联系。研究人员对于如何将不同的智能体功能组合成完整的机器人系统尚无一致看法。本文对现有智能体机器人研究进行了统一概述。我们首先追溯从机器人策略到智能体系统的发展，涵盖视觉-语言-动作模型、世界模型和世界-动作模型。然后，我们阐明智能体机器人的定义和范围，并将现有研究按四个功能域——模型、数据、环境与框架——组织为十七个类别。在这些域中，我们考察智能体如何塑造模型学习和机器人决策，收集和整理机器人数据，构建用于学习和评估的世界、任务和测试，以及组织机器人使用的能力。最后，我们讨论开放挑战并概述未来研究方向。展望未来，我们希望这项工作有助于更清晰地理解智能体机器人，并支持新方法使其更有能力、更可靠、更具适应性。</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Foundation models are driving a paradigm shift in robotic intelligence, moving beyond low-level action prediction to goal-directed orchestration of data collection, model training, task planning, and real-world execution.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Interaction Latents as Actions for Contact-Rich Manipulation</div>
+<div class="meta-line">Authors: Yuhang Zheng, Yujie Zang, Yuchen Liu, Yupeng Zheng, Zhennan Jiang, Zebin Xing, Shuai Tian, Songen Gu, Jingxiang Guo, Chen Gao, Zhongpu Xia, Shuicheng Yan</div>
+<div class="meta-line">First: 2026-10-13T17:59:16+00:00 · Latest: 2026-10-14T16:29:07+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.18855v2">Abs</a> · <a href="https://arxiv.org/pdf/2610.18855v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://mrsecant.github.io/ILA/">Project1</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Contact-rich manipulation requires robots to coordinate not only where to move, but also how contact and force should evolve throughout an interaction. Yet most robot policies represent actions primarily as motion trajectories, using tactile signals as inputs or auxiliary prediction targets without explicitly encoding contact dynamics in the action representation. We propose ILA (Interaction Latents as Actions), which uses decodable interaction latents that jointly capture the evolution of motion, contact, and force application as policy action units, providing a shared representation for action generation, evaluation, and offline improvement. We learn these latents through visually conditioned joint action-tactile reconstruction with a time-conditioned implicit decoder. Using them as flow-matching generation targets supports post-training of pretrained vision-language-action models (VLAs) and world action models (WAMs), as well as training flow-matching policies from scratch. A shared decoder maps generated latents to executable actions. For offline improvement, we learn a tactile-conditioned expert reference model from interaction latents encoded from expert demonstrations. The resulting expert-consistency rewards guide weighted learning from successful rollouts, while observation-compatible expert references guide correction of low-reward predictions from failed rollouts. Across three policy families, ILA improves success rates averaged over four real-world tasks by 21.0-36.5 percentage points relative to tactile-conditioned direct-action baselines. Ablations highlight the benefit of encoding contact evolution in action targets beyond tactile conditioning, while the same latent space supports expert-guided offline improvement. Project website: https://mrsecant.github.io/ILA/.</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>交互潜变量作为动作的富接触操作</div>
+<div class="mono" style="margin-top:8px">富接触操作要求机器人不仅协调移动位置，还要协调整个交互过程中接触和力的演变。然而，大多数机器人策略主要将动作表示为运动轨迹，将触觉信号用作输入或辅助预测目标，而未在动作表示中显式编码接触动力学。我们提出ILA（交互潜变量作为动作），使用可解码的交互潜变量作为策略动作单元，联合捕捉运动、接触和力施加的演变，为动作生成、评估和离线改进提供共享表示。我们通过视觉条件化的联合动作-触觉重建与时间条件隐式解码器学习这些潜变量。将其用作流匹配生成目标，支持预训练视觉-语言-动作模型（VLA）和世界动作模型（WAM）的后训练，以及从头训练流匹配策略。共享解码器将生成的潜变量映射为可执行动作。对于离线改进，我们从专家演示编码的交互潜变量中学习触觉条件化的专家参考模型。由此产生的专家一致性奖励指导从成功轨迹中进行加权学习，而观测兼容的专家参考指导从失败轨迹中修正低奖励预测。在三个策略家族中，ILA在四个真实世界任务上的平均成功率相对于触觉条件化的直接动作基线提高了21.0-36.5个百分点。消融实验突出了在动作目标中编码接触演变超越触觉条件化的优势，同时同一潜空间支持专家引导的离线改进。项目网站：https://mrsecant.github.io/ILA/。</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Contact-rich manipulation requires robots to coordinate not only where to move, but also how contact and force should evolve throughout an interaction.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">X-Safe: Embodiment-Agnostic Safeguarding for Robot Arm Manipulation Policies via Action Masking</div>
+<div class="meta-line">Authors: Alex Beaudin, Hanna Krasowski, Kartik Nagpal, Sanjit A. Seshia, Murat Arcak, Negar Mehr</div>
+<div class="meta-line">First: 2026-06-21T00:11:46+00:00 · Latest: 2026-10-14T16:28:57+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2606.22278v2">Abs</a> · <a href="https://arxiv.org/pdf/2606.22278v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Ensuring safety of learning-enabled robotic manipulation across diverse embodiments and tasks still requires significant manual engineering. For collision avoidance, existing approaches typically rely on embodiment-specific learned safety approximations or simplified robot models together with stopping-based fallback controllers that compromise performance. In this paper, we propose an embodiment-agnostic safeguarding approach, X-Safe, which provides formal probabilistic guarantees for collision avoidance without model simplifications or learned safety functions. By operating in the configuration space, our safeguarding method works with different types of robot policies. X-Safe reasons locally around the current configuration to establish safe regions and uses action masking to restrict the policy&#x27;s support to these safe regions. We demonstrate X-Safe on two embodiments and three policies, both in simulation and on hardware. We observe less than half of the performance degradation compared to state-of-the-art safeguarding, and empirically corroborate our formal collision avoidance guarantees.</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>X-Safe：通过动作掩码实现具身无关的机械臂操作策略安全防护</div>
+<div class="mono" style="margin-top:8px">确保学习型机器人操作在不同具身和任务中的安全性仍需大量人工工程。对于碰撞避免，现有方法通常依赖特定具身的学习安全近似或简化机器人模型，并结合基于停止的回退控制器，从而损害性能。本文提出一种具身无关的安全防护方法X-Safe，无需模型简化或学习安全函数即可为碰撞避免提供形式化概率保证。通过在构型空间中操作，我们的防护方法适用于不同类型的机器人策略。X-Safe围绕当前构型进行局部推理以建立安全区域，并使用动作掩码将策略的支持限制在这些安全区域内。我们在两种具身和三种策略上，在仿真和硬件中展示了X-Safe。与最先进的安全防护相比，我们观察到性能退化不到一半，并经验性地证实了我们的形式化碰撞避免保证。</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Ensuring safety of learning-enabled robotic manipulation across diverse embodiments and tasks still requires significant manual engineering.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">When Do Discrete Actions Make Good Continuous Controllers?</div>
+<div class="meta-line">Authors: Zeji Yi, Soham Dasgupta, Xinyang Zhang, Koushil Sreenath, Guannan Qu, Xi Chen, Max Simchowitz, Guanya Shi</div>
+<div class="meta-line">First: 2026-10-14T16:20:58+00:00 · Latest: 2026-10-14T16:20:58+00:00</div>
+<div class="meta-line">Comments: 53 pages (12 main text), 19 figures, 12 tables. Project page: https://iscoyizj.github.io/discrete-action-website/</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20429v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20429v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a> · <a href="https://iscoyizj.github.io/discrete-action-website/">Project1</a> · <a href="https://iscoyizj.github.io/discrete-action-website/}{https://iscoyizj.github.io/discrete-action-website/">Project2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Though modern AI models like LLMs predict discrete tokens, today&#x27;s robotic foundation models represent actions as continuous vectors. In this paper, we challenge this common consensus by asking if continuous action parametrizations are superior to their discrete counterparts. We conduct an extensive comparison of single-step regression and multi-step flow variants of both continuous and discrete policies in both from-scratch single-task and multi-task VLA training, in both simulation and on real hardware. In all regimes, we find that discrete action prediction, even the most naive, uniform-bin quantization, can match or even outperform continuous-action policies in task success rate. Moreover, we find that the challenge to discrete action policies is \emph{not} action precision, but rather factorization error introduced by product-distribution predictions across time and action dimensions. We show that, when paired with the correct interventions---iterative computation through discrete flows, or distribution sharpening through classifier-free guidance---discrete flow policies can turn this weakness into a strength, enabling more responsive action changes during a predicted action chunk. Lastly, we show that attempts to explicitly inject geometric information into discrete policies, e.g. through corruption processes that emulate continuous flow matching, do \emph{not} yield consistent improvements. Taken together, our findings question existing assumptions that robotic action prediction requires distinct design decisions compared to other AI domains, and motivates the possibility of discrete action prediction as a compelling alternative to today&#x27;s continuous action parametrizations. Link for the webpage \href{https://iscoyizj.github.io/discrete-action-website/}{https://iscoyizj.github.io/discrete-action-website/}</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>离散动作何时能成为良好的连续控制器？</div>
+<div class="mono" style="margin-top:8px">尽管LLM等现代AI模型预测离散token，但当今的机器人基础模型将动作表示为连续向量。在本文中，我们挑战这一普遍共识，探究连续动作参数化是否优于其离散对应形式。我们对连续和离散策略的单步回归与多步流变体进行了广泛比较，涵盖从零开始的单任务和多任务VLA训练，以及仿真和真实硬件。在所有情况下，我们发现离散动作预测，即使是最朴素的均匀分箱量化，也能在任务成功率上匹配甚至超越连续动作策略。此外，我们发现离散动作策略的挑战\emph{并非}动作精度，而是跨时间和动作维度的乘积分布预测引入的因子分解误差。我们表明，当与正确的干预措施配对时——通过离散流进行迭代计算，或通过无分类器引导进行分布锐化——离散流策略可以将这一弱点转化为优势，从而在预测的动作块内实现更灵敏的动作变化。最后，我们表明，试图将几何信息显式注入离散策略（例如通过模拟连续流匹配的损坏过程）\emph{不会}带来一致的改进。综上所述，我们的发现质疑了现有假设，即机器人动作预测需要与其他AI领域不同的设计决策，并激发了离散动作预测作为当今连续动作参数化的一种有吸引力的替代方案的可能性。网页链接 \href{https://iscoyizj.github.io/discrete-action-website/}{https://iscoyizj.github.io/discrete-action-website/}</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Though modern AI models like LLMs predict discrete tokens, today&#x27;s robotic foundation models represent actions as continuous vectors.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">When Does Momentum Help in Reinforcement Learning with Verifiable Rewards?</div>
+<div class="meta-line">Authors: Kaifei Wang, Zikang Shan, Liwei Wang, Yinyu Ye, Han Zhong</div>
+<div class="meta-line">First: 2026-10-14T16:11:14+00:00 · Latest: 2026-10-14T16:11:14+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2610.20413v1">Abs</a> · <a href="https://arxiv.org/pdf/2610.20413v1">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Momentum is a classical tool for accelerating convex optimization and a standard component of modern large language model training. Yet recent empirical work has questioned the usefulness of first-moment momentum in reinforcement learning with verifiable rewards (RLVR). We study this question through a bandit formulation of RLVR with bias-corrected exponential moving average (EMA) momentum, where the EMA coefficient $β$ controls how quickly the weights on past gradients decay. When policy gradients are evaluated exactly, we prove that increasing $β$ within a range that prevents overshoot strictly accelerates optimization. When gradients are estimated from sampled responses, a positive expected gain can be obscured by sampling fluctuations. We show that as the learning rate $η$ decreases, the expected gain with fixed $β$ vanishes faster than these fluctuations, whereas increasing $β$ to keep $η/(1-β)$ within the safe regime preserves a nonvanishing gain that eventually dominates them. Bandit simulations quantitatively validate these predictions. RLVR experiments on Qwen3-4B-Base using SGD with EMA and AdamW support our principle of choosing larger coefficients in practical LLM post-training. On Qwen2.5-32B with AdamW, simply increasing $β_1$ improves mean validation accuracy by nearly $2$ percentage points over the conventional choice, demonstrating the principle&#x27;s effectiveness at a larger model scale.</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>在可验证奖励的强化学习中动量何时有帮助？</div>
+<div class="mono" style="margin-top:8px">动量是加速凸优化的经典工具，也是现代大语言模型训练的标准组件。然而，近期实证工作对一阶动量在可验证奖励强化学习（RLVR）中的有效性提出了质疑。我们通过带偏差校正指数移动平均（EMA）动量的RLVR赌博机形式研究这一问题，其中EMA系数$β$控制过去梯度权重的衰减速度。当策略梯度被精确评估时，我们证明在防止过冲的范围内增大$β$会严格加速优化。当梯度从采样响应中估计时，正期望增益可能被采样波动掩盖。我们表明，随着学习率$η$减小，固定$β$下的期望增益消失得比这些波动更快，而增大$β$以保持$η/(1-β)$在安全范围内则保留一个最终主导波动的非消失增益。赌博机模拟定量验证了这些预测。在Qwen3-4B-Base上使用带EMA的SGD和AdamW进行的RLVR实验支持我们在实际LLM后训练中选择更大系数的原则。在Qwen2.5-32B上使用AdamW时，仅增大$β_1$就比传统选择将平均验证准确率提高近$2$个百分点，证明了该原则在更大模型规模下的有效性。</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Momentum is a classical tool for accelerating convex optimization and a standard component of modern large language model training.</div>
+</details>
+</div>
+<div class="card">
+<div class="title">Long-Range Distillation: Distilling 10,000 Years of Simulated Climate into Long Timestep AI Weather Models</div>
+<div class="meta-line">Authors: Scott A. Martin, Noah Brenowitz, Dale Durran, Michael Pritchard</div>
+<div class="meta-line">First: 2025-12-28T07:03:20+00:00 · Latest: 2026-10-14T16:10:03+00:00</div>
+<div class="links" style="margin-top:8px"><a href="https://arxiv.org/abs/2512.22814v2">Abs</a> · <a href="https://arxiv.org/pdf/2512.22814v2">PDF</a> · <a href="https://huggingface.co/huggingface">Code1</a> · <a href="https://huggingface.co/docs/hub/spaces">Code2</a></div>
+<details class="detail"><summary>Abstract</summary>
+<div class="mono">Accurate long-range weather forecasting remains a major challenge for AI models, both because errors accumulate over autoregressive rollouts and because reanalysis training datasets provide limited sampling of the slow modes of variability underpinning predictability. Most AI and all numerical weather prediction models are autoregressive, repeatedly applying short-lead forecasts to reach subseasonal-to-seasonal (S2S) or seasonal lead times, often causing instability and miscalibration. Long-timestep probabilistic models that generate long-range forecasts in a single step offer an alternative, but training on the 40-year reanalysis record leads to overfitting, suggesting orders of magnitude more data are required. We introduce long-range distillation, whereby a long-timestep probabilistic ``student&#x27;&#x27; model is trained to forecast directly at long-range using a huge synthetic dataset generated by an autoregressive ``teacher&#x27;&#x27; model. Using the Deep Learning Earth System Model (DLESyM) as teacher, we generate over 10,000 years of simulated climate to train student models across a range of timescales. In perfect-model experiments, the distilled models outperform climatology and approach their teacher&#x27;s skill while replacing hundreds of autoregressive steps with a single timestep. In the real world, both a diffusion model student fine-tuned on ERA5 and a linear inverse model student with mixed DLESyM-ERA5 training achieve S2S forecast skill competitive with the ECMWF IFS ensemble, with synthetic pre-training providing improvements beyond ERA5-only training. This demonstrates the benefit of synthetic pre-training for both deep learning and classical data-driven methods, and represents the first demonstration that real-world skill can be improved by training on AI-generated synthetic data in volumes far exceeding the observational record.</div></details>
+<details class="detail"><summary>中文标题/摘要</summary>
+<div class="mono"><b>标题：</b>长程蒸馏：将10,000年模拟气候蒸馏为长时步AI天气模型</div>
+<div class="mono" style="margin-top:8px">准确的长程天气预报仍是AI模型的一大挑战，既因为误差在自回归滚动中累积，也因为再分析训练数据集对支撑可预报性的慢变模态采样有限。大多数AI模型和所有数值天气预报模型都是自回归的，反复应用短时效预报来达到次季节到季节（S2S）或季节时效，常导致不稳定和校准偏差。单步生成长期预报的长时步概率模型提供了替代方案，但在40年再分析记录上训练会导致过拟合，表明需要多几个数量级的数据。我们提出长程蒸馏，即训练一个长时步概率“学生”模型，利用自回归“教师”模型生成的巨大合成数据集直接进行长程预报。使用深度学习地球系统模型（DLESyM）作为教师，我们生成超过10,000年的模拟气候，以训练跨多种时间尺度的学生模型。在完美模型实验中，蒸馏模型优于气候态并接近其教师的技巧，同时用单个时间步替代数百个自回归步骤。在真实世界中，一个在ERA5上微调的扩散模型学生和一个使用DLESyM-ERA5混合训练的线性逆模型学生，均达到与ECMWF IFS集合预报相当的S2S预报技巧，合成预训练提供了超越仅用ERA5训练的改进。这证明了合成预训练对深度学习和经典数据驱动方法都有益，并首次证明通过训练AI生成的合成数据（其量远超观测记录）可以提高真实世界技巧。</div>
+</details>
+<details class="detail"><summary>Summary / 总结</summary>
+<div class="mono">Accurate long-range weather forecasting remains a major challenge for AI models, both because errors accumulate over autoregressive rollouts and because reanalysis training datasets provide limited sampling of the slow modes of variability underpinning predictability.</div>
+</details>
+</div></div>
+    <details style="margin-top:16px" class="detail"><summary>History</summary>
+      <div class="history-list"><a href="archive/20261014_1430.html">20261014_1430</a>
+<a href="archive/20261014_0941.html">20261014_0941</a>
+<a href="archive/20261013_2158.html">20261013_2158</a>
+<a href="archive/20261013_1559.html">20261013_1559</a>
+<a href="archive/20261012_1544.html">20261012_1544</a>
+<a href="archive/20261012_0958.html">20261012_0958</a>
+<a href="archive/20261011_2301.html">20261011_2301</a>
+<a href="archive/20261011_1535.html">20261011_1535</a>
+<a href="archive/20261010_1530.html">20261010_1530</a>
+<a href="archive/20261009_1544.html">20261009_1544</a>
+<a href="archive/20261009_1217.html">20261009_1217</a>
+<a href="archive/20261008_2050.html">20261008_2050</a>
+<a href="archive/20261008_1547.html">20261008_1547</a>
+<a href="archive/20261007_1531.html">20261007_1531</a>
+<a href="archive/20261006_1552.html">20261006_1552</a>
+<a href="archive/20261005_1525.html">20261005_1525</a>
+<a href="archive/20261004_1512.html">20261004_1512</a>
+<a href="archive/20261003_1450.html">20261003_1450</a>
+<a href="archive/20261002_1519.html">20261002_1519</a>
+<a href="archive/20261001_1533.html">20261001_1533</a>
+<a href="archive/20260930_2125.html">20260930_2125</a>
+<a href="archive/20260930_1505.html">20260930_1505</a>
+<a href="archive/20260929_1514.html">20260929_1514</a>
+<a href="archive/20260928_1517.html">20260928_1517</a>
+<a href="archive/20260927_1452.html">20260927_1452</a>
+<a href="archive/20260927_1012.html">20260927_1012</a>
+<a href="archive/20260926_1618.html">20260926_1618</a>
+<a href="archive/20260926_1423.html">20260926_1423</a>
+<a href="archive/20260925_1424.html">20260925_1424</a>
+<a href="archive/20260924_1429.html">20260924_1429</a>
+<a href="archive/20260923_1419.html">20260923_1419</a>
+<a href="archive/20260922_1434.html">20260922_1434</a>
+<a href="archive/20260922_0942.html">20260922_0942</a>
+<a href="archive/20260921_1446.html">20260921_1446</a>
+<a href="archive/20260921_0942.html">20260921_0942</a>
+<a href="archive/20260920_1440.html">20260920_1440</a>
+<a href="archive/20260920_1153.html">20260920_1153</a>
+<a href="archive/20260919_1416.html">20260919_1416</a>
+<a href="archive/20260919_1104.html">20260919_1104</a>
+<a href="archive/20260918_1417.html">20260918_1417</a>
+<a href="archive/20260917_1426.html">20260917_1426</a>
+<a href="archive/20260916_1513.html">20260916_1513</a>
+<a href="archive/20260916_1425.html">20260916_1425</a>
+<a href="archive/20260912_1410.html">20260912_1410</a>
+<a href="archive/20260912_1301.html">20260912_1301</a>
+<a href="archive/20260911_1423.html">20260911_1423</a>
+<a href="archive/20260911_1209.html">20260911_1209</a>
+<a href="archive/20260910_1421.html">20260910_1421</a>
+<a href="archive/20260910_1236.html">20260910_1236</a>
+<a href="archive/20260909_2111.html">20260909_2111</a></div>
+    </details>
+    <div class="footer">Generated by arxiv-tracker</div>
+  </div>
+</body></html>
